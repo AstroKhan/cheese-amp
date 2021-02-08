@@ -63,6 +63,11 @@
       custom-element="amp-lightbox-gallery"
       src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"
     ></script>
+    <script
+      async
+      custom-element="amp-bind"
+      src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
+    ></script>
     <title>Chico's Cheese Bicycles</title>
     <meta
       name="viewport"
@@ -732,108 +737,86 @@
             hungry. Our bikes are 100% biodegradable. And with our new
             rodent-repelling varnish they last longer than ever!
           </p>
+          <amp-state id="carousel">
+            <script type="application/json">
+              {
+                  "selectedSlide": 0
+              }
+            </script>
+          </amp-state>
           <amp-carousel
-            on="slideChange:ampSelector.toggle(index=event.index)"
-            id="carousel"
+            on="slideChange:AMP.setState({carousel: {selectedSlide:event.index}})"
+            [slide]="carousel.selectedSlide"
+            lightbox
+            id="imageSlides"
+            layout="responsive"
             width="412"
             height="309"
-            layout="responsive"
             type="slides"
             loop
-            lightbox
           >
             <amp-img
               src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fcheddar-chaser.jpg?1540228205366"
               width="412"
               height="309"
-              alt="cheddar-chaser"
               layout="responsive"
             ></amp-img>
             <amp-img
-              src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fcheese.jpg?v=1540228223785"
+              src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fcheese.jpg?1540228223785"
               width="412"
               height="309"
-              alt="cheese"
               layout="responsive"
             ></amp-img>
             <amp-img
-              src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fmouse.jpg?v=1540228223963"
+              src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fmouse.jpg?1540228223963"
               width="412"
               height="309"
-              alt="mouse"
               layout="responsive"
             ></amp-img>
           </amp-carousel>
           <amp-selector
-            layout="container"
-            name="single_image_select"
             id="ampSelector"
+            [selected]="carousel.selectedSlide"
+            on="select:AMP.setState({carousel: {selectedSlide:event.targetOption}})"
           >
             <amp-carousel
-              class="thumbnail-carousel"
               layout="fixed-height"
-              width="auto"
               height="78"
+              class="thumbnail-carousel"
             >
               <amp-img
-                src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fcheddar-chaser-thumb.jpg?v=1540228250623"
-                selected
-                on="tap:carousel.goToSlide(index=0)"
-                width="96"
-                height="72"
-                layout="fixed"
-                role="button"
-                tabindex="1"
+                src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fcheddar-chaser-thumb.jpg?1540228250623"
                 option="0"
-              ></amp-img>
-              <amp-img
-                src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fcheese-thumb.jpg?v=1540228249992"
-                on="tap:carousel.goToSlide(index=1)"
+                selected
+                role="button"
+                tabindex="1"
                 width="96"
                 height="72"
                 layout="fixed"
-                role="button"
-                tabindex="1"
+              ></amp-img>
+              <amp-img
+                src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fcheese-thumb.jpg?1540228249992"
                 option="1"
-              ></amp-img>
-              <amp-img
-                src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fmouse-thumb.jpg?v=1540228249062"
-                on="tap:carousel.goToSlide(index=2)"
+                role="button"
+                tabindex="1"
                 width="96"
                 height="72"
                 layout="fixed"
+              ></amp-img>
+              <amp-img
+                src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fmouse-thumb.jpg?1540228249062"
+                option="2"
                 role="button"
                 tabindex="1"
-                option="2"
+                width="96"
+                height="72"
+                layout="fixed"
               ></amp-img>
             </amp-carousel>
           </amp-selector>
-          <!--- <div class="carousel-preview">
-            <button on="tap:carousel-with-preview.goToSlide(index=0)">
-              <amp-img
-                src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fcheddar-chaser.jpg?1540228205366"
-                width="40"
-                height="30"
-                alt="cheddar-chaser"
-              ></amp-img>
-            </button>
-            <button on="tap:carousel-with-preview.goToSlide(index=1)">
-              <amp-img
-                src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fcheese.jpg?v=1540228223785"
-                width="40"
-                height="30"
-                alt="cheese"
-              ></amp-img>
-            </button>
-            <button on="tap:carousel-with-preview.goToSlide(index=2)">
-              <amp-img
-                src="https://cdn.glitch.com/d7f46a57-0ca4-4cca-ab0f-69068dec6631%2Fmouse.jpg?v=1540228223963"
-                width="40"
-                height="30"
-                alt="mouse"
-              ></amp-img>
-            </button>
-          </div> --->
+          <p [text]="'Slide ' + (carousel.selectedSlide + 1) + ' of 3'">
+            Slide 1 of 3
+          </p>
           <amp-youtube
             data-videoid="BlpMQ7fMCzA"
             layout="responsive"
