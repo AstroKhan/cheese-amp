@@ -28,7 +28,64 @@
       content="width=device-width,minimum-scale=1,initial-scale=1"
     />
     <link rel="canonical" href="https://enshrined-eyebrow.glitch.me/" />
-    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <style amp-boilerplate>
+      body {
+        -webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        -moz-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        -ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+      }
+      @-webkit-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-moz-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-ms-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-o-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+    </style>
+    <noscript
+      ><style amp-boilerplate>
+        body {
+          -webkit-animation: none;
+          -moz-animation: none;
+          -ms-animation: none;
+          animation: none;
+        }
+      </style></noscript
+    >
 
     <script
       async
@@ -581,13 +638,19 @@
         <li class="nav-item"><a href="#">Contact</a></li>
       </ul>
     </amp-sidebar>
-
     <main>
       <div class="main-content">
         <h2 class="main-heading">Our Products</h2>
         <div class="filter-sort-selectors">
           <p>Product Type:</p>
-          <select class="product-selector">
+          <select
+            class="product-selector"
+            on="change:AMP.setState({
+                        products: {
+                            category: event.value
+                        }
+                    })"
+          >
             <option value="all">All</option>
             <option value="bicycle">Bikes</option>
             <option value="helmet">Helmets</option>
@@ -596,21 +659,48 @@
             <option value="bottle">Water Bottles</option>
           </select>
           <p class="sort-by">Sort By:</p>
-          <select class="order-selector">
+          <select
+            class="order-selector"
+            on="change:AMP.setState({
+                        products: {
+                            sort: event.value
+                        }
+                    })"
+          >
             <option value="price-desc">Price: High-Low</option>
             <option value="price-asc">Price: Low-High</option>
           </select>
         </div>
-
         <amp-list
           id="amp-list-bikes"
           class="product-list"
           width="auto"
           height="600"
           layout="fixed-height"
-          src="products/filter?sort=price-desc&category=all"
+          src="/products/filter"
+          [src]="'/products/filter?sort=' + products.sort +
+                   '&category=' + products.category"
+          binding="refresh"
         >
-          <template type="amp-mustache"> </template>
+          <template type="amp-mustache">
+            <div class="product-card">
+              <amp-img
+                width="200"
+                height="150"
+                layout="responsive"
+                alt="{{name}}"
+                src="{{img}}"
+              >
+              </amp-img>
+              <div class="product-details">
+                <p class="product-name">{{name}}</p>
+                <p class="star-rank">{{stars}} ★</p>
+                <p class="product-price">
+                  ${{price}}
+                </p>
+              </div>
+            </div>
+          </template>
         </amp-list>
       </div>
     </main>
