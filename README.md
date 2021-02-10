@@ -1,6 +1,6 @@
 ## Accelerated Mobile Pages Beginner Course Step 1
 
-This repo contains the starting point of [the AMP Beginner Course](https://amp.dev/documentation/courses/beginning-course/?format=websites&level=beginner). It's just a simple HTML page with no styles at all, and no AMP tags/links/scripts. 
+This repo contains the starting point of [the AMP Beginner Course](https://amp.dev/documentation/courses/beginning-course/?format=websites&level=beginner). It's just a simple HTML page with no styles at all, and no AMP tags/links/scripts.
 
 However, it contains everything that is needed for the final version of the site at the end of Advanced Exercises (data list, server code, images/assets, etc).
 
@@ -19,16 +19,17 @@ If you have a Glitch account, all the remixed projects will be saved into your a
 
 ### Important task: Add your Glitch URL to the environment valiable
 
-It is important to update the environment variable with your own Glitch project's URL. 
+It is important to update the environment variable with your own Glitch project's URL.
 
 _This will make sure that our server knows where to serve our pages from and avoid any CORS issues. If you don't know anything about CORS, don't worry. Just make sure you add your URL there._
 
-* Open the `.env` file from the side menu.
+- Open the `.env` file from the side menu.
 
-* Add your Glitch's live URL on line 5, without the trailing slash, in quotation marks. 
-If your current URL is `https://glitch.com/edit/#!/your-glitch`, then the result should look like this:
+- Add your Glitch's live URL on line 5, without the trailing slash, in quotation marks.
+  If your current URL is `https://glitch.com/edit/#!/your-glitch`, then the result should look like this:
 
   **line 5 of `.env` file:**
+
   ```
   URL="https://your-glitch.glitch.me"
   ```
